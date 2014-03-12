@@ -44,7 +44,6 @@ beginps
 		grestore
 	}!
 	/HD { Hd }!
-	/HDD { Hd }!
 } bind def
 
 /easynotes_off {
