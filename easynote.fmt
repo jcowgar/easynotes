@@ -25,26 +25,31 @@ beginps
 
 /en_get_note_name {
 	note_names 0 y0 y 3 div abs add cvi 7 mod abs get
-} bind def
+}!
+
+/en_draw_note_name {
+	6.8 F0 x -2.3 add y -2.3 add moveto en_get_note_name show
+}!
 
 /easynotes_on {
 	/hd{
 		/x 2 index def /y 1 index def
 		gsave
 			4 0 360 arc closepath 0.0 setgray fill
-			1.0 setgray 6.8 F0 x -2.3 add y -2.3 add moveto en_get_note_name show
+			1.0 setgray en_draw_note_name
 		grestore
 	}!
 	/Hd{
 		/x 2 index def/y 1 index def
 		gsave
-			4 0 360 arc closepath 1 1 1 setrgbcolor fill
+			x y 4 0 360 arc closepath 0.0 setgray fill
+			3.5 0 360 arc closepath 1.0 setgray fill
 			0.0 setgray x y 4 0 360 arc closepath stroke
-			6.8 F0 x -2.3 add y -2.3 add moveto en_get_note_name show
+			en_draw_note_name
 		grestore
 	}!
 	/HD { Hd }!
-} bind def
+}!
 
 /easynotes_off {
 	/hd /old_hd load bind def
@@ -53,6 +58,6 @@ beginps
 	/HDD /old_HDD load bind def
 	/breve /old_breve load bind def
 	/longa /old_longa load bind def
-} bind def
+}!
 
 endps
