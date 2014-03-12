@@ -19,9 +19,15 @@ beginps
 /old_HDD /HDD load bind def
 /old_breve /breve load bind def
 /old_longa /longa load bind def
+/old_tclef /tclef load bind def
+/old_bclef /bclef load bind def
 
-/en_note_names [
+/en_note_names_tclef [
 	(E) (D) (C) (B) (A) (G) (F)
+] def
+
+/en_note_names_bclef [
+	(G) (F) (E) (D) (C) (B) (A)
 ] def
 
 /en_get_note_name {
@@ -35,6 +41,14 @@ beginps
 }!
 
 /easynotes_on {
+	/tclef {
+		/en_note_names en_note_names_tclef def
+		old_tclef
+	}!
+	/bclef {
+		/en_note_names en_note_names_bclef def
+		old_bclef
+	}!
 	/hd{
 		/x 2 index def /y 1 index def
 		gsave
@@ -55,6 +69,8 @@ beginps
 }!
 
 /easynotes_off {
+	/tclef /old_tclef load bind def
+	/bclef /old_bclef load bind def
 	/hd /old_hd load bind def
 	/Hd /old_Hd load bind def
 	/HD /old_HD load bind def

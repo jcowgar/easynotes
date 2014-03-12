@@ -2,10 +2,7 @@
 
 %%scale 1.2
 %%textfont Helvetica 8
-%%setfont-1 Helvetica-Bold 12
-
-%%text $1NOTE:
-%%text square breve and longa are not yet supported in easy note heads
+%%setfont-1 Helvetica-Bold 8
 
 %%ps easynotes_on
 
@@ -14,21 +11,27 @@ T:Hello Easy Note Heads
 K:C
 C/D/ E/ F/ G2 A2 B2 | c4 d4 | E8 | F8 |]
 
-X:2
+X:4
+T:Hello Bass
+K:C bass
+A,,,2 B,,,C,, D,,E,, F,,G,, | G,,4 A,,2 B,, C, | D,E,F,G, A,B,CD |]
+
+X:3
 T:Hello SOME Easy Note Heads
 K:C
-%%ps easynotes_on
 %easynoteshide FGA
 %%begintext
-$1NOTE:$0
+$1NOTE: -- NOT YET FUNCTIONAL --$0
 F, G, and A are all hidden as part of the \%\%easynoteshide FGA command. Simply list any notes that
 you do not wish to print easy note heads for, i.e. the student has already (or should have already)
-learned those notes by sight.
+learned those notes by sight. 
 %%endtext
 C/D/ E/ F/ G2 A2 B2 | c4 d4 | E8 | F8 |]
 
-X:3
+%%ps easynotes_off
+
+X:4
 T:Goodbye Easy Note Heads
 K:C
-%%ps easynotes_off
 C/D/ E/ F/ G2 A2 B2 | c4 d4 | E8 | F8 |]
+
