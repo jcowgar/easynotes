@@ -4,6 +4,8 @@ Easy Notes format for abcm2ps
 Easy Notes is a format file for abcm2ps that shows the note name inside of
 the actual note head. This is used to teach music to new students.
 
+![Example of Easy Notes Output](http://jeremy.cowgar.com/easynotes.png "Example of Easy Notes Output")
+
 Limitations
 -----------
 
