@@ -20,20 +20,23 @@ to return back to normal note heads.
 It is also advisable to use ``%%scale 1.2`` or larger to make the letters in the note heads
 large enough to be readable at a normal distance.
 
+You can also cause Easy Notes to not print the note name in some notes. For example, maybe your
+student has had adequate time to learn F, G and A. You can turn those off. All other pitches
+such as D, E, f, and f' will still display their note name but F, G and A will not.
+
+    %%ps [ (D) (E) (F) ] easynotes_hide
+
+You can also reset the hide list for other songs.
+
+    %%ps easynotes_showall
+
 Limitations
 -----------
 
+* Does not yet support multiple stave music.
 * Does not support ``breve`` or ``longa`` notes. This generally is not a problem 
   since any student just learning the music staff (thus using easy notes)
   is probably not going to run into such notes.
 * Does not support switching between the treble and bass clef mid staff. Again, though,
   this is generally not a problem due to this extension being geared toward new readers
   of music.
-
-Future
-------
-
-* Support the idea of an ignore list for notes. For example, once you have taught
-  your student C, D and E and they have had sufficient time to learn to sight read
-  those notes, you could add C, D and E to the Easy Notes ignore list. This would
-  cause those notes to not show the note name in the head, but other notes would.

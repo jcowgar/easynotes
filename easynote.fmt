@@ -44,41 +44,63 @@ beginps
 /old_tclef /tclef load bind def
 /old_bclef /bclef load bind def
 
-/en_note_names_tclef [
-	(E) (D) (C) (B) (A) (G) (F)
+/en_pitches_tclef [
+	(e'') (d'') (c'') (b')  (a')  (g')  (f') 
+	(e')  (d')  (c')  (b)   (a)   (g)   (f)
+	(e)   (d)   (c)   (B)   (A)   (G)   (F)
+	(E)   (D)   (C)   (B,)  (A,)  (G,)  (F,)
+	(E,)  (D,)  (C,)  (B,,) (A,,) (G,,) (F,,)
 ] def
 
-/en_note_names_bclef [
-	(G) (F) (E) (D) (C) (B) (A)
-] def
+/en_note_names_tclef [ (E) (D) (C) (B) (A) (G) (F) ] def
+/en_note_names_bclef [ (G) (F) (E) (D) (C) (B) (A) ] def
+/easynotes_hide { /en_note_pitches_hide exch def }!
+/easynotes_showall { /en_note_pitches_hide [] def }!
+easynotes_showall
 
 %
 % y0 is set by abcm2ps and is the Y offset of the first line of the staff, E on the treble cleff.
 % This number is always negative, as are note Y offsets. So, the formula below simply does:
 % (abs(note-y) - abs(staff-e-line)) / 3. 7 mod will result in 0 for E, -1 for F, 1 for D.
 % i.e. E = 0 and anything on either side is a positive or negative. Thus, I take 7 (number
-% of notes in the scale) times 10 for 70 and add that to it. This will not affect my 7 mod,
-% but will ensure that everything is a positive. I then use the result of that as the index
-% for en_note_names.
+% of notes in the scale) adding 21. This will not affect my 7 mod, but will ensure that
+% everything is a positive. I then use the result of that as the index for en_note_names.
 %
 % For example: y0 = -48.0, y = -36
 % abs(-36) - abs(-48)        = -12.0
 % -12.0 / 3.0                = -4.0
-% -4.0 + 70.0                = 66.0
+% -4.0 + 21.0                = 17.0
 % 66 mod 7                   = 3
 % [E D C B A G F]            = B (3rd index, 0 based)
 %
 % en_note_names can be set to _tclef or _bclef, i.e. E (treble) as the 1st line or G (bass).
 %
 
-/en_get_note_name {
-	en_note_names y abs 0 y0 abs sub 3 div cvi 70 add 7 mod abs get
-}!
-
+/en_get_note_pitch_index { y abs 0 y0 abs sub 3 div cvi 21 add abs }!
+/en_get_note_name { en_note_names en_get_note_pitch_index 7 mod get }!
+/en_get_note_pitch { en_pitches_tclef en_get_note_pitch_index get }!
 /en_note_font { /Helvetica-utf8 exch selectfont }!
 
+/en_should_print {
+	/Enp en_get_note_pitch def
+	/Ensp 1 def
+	en_note_pitches_hide {
+		Enp search {
+			pop pop
+			/Ensp 0 def
+			exit
+		} {
+			pop
+		} ifelse
+	} forall
+
+	Ensp
+}!
+
 /en_draw_note_name {
-	 en_get_note_name 6.8 en_note_font x -2.3 add y -2.3 add moveto show
+	en_should_print 1 eq {
+		en_get_note_name 6.8 en_note_font x -2.3 add y -2.3 add moveto show
+	} if
 }!
 
 /easynotes_on {
