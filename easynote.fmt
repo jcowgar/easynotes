@@ -1,10 +1,32 @@
 % easynote.fmt         -*- abc -*-
 %
-% (2014-03-12 -- Initial creation)
+% Author:
 %
+%   Jeremy Cowgar <jeremy AT cowgar dotty com>
+%
+% Contributors:
+%
+%
+% History:
+%
+%     (2014-03-12 -- Initial creation)
 %
 % Copyright (C) 2014 by Jeremy Cowgar
 %
+% This file is part of easynote.
+%
+% easynote is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+% 
+% easynote is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with easynote.  If not, see <http://www.gnu.org/licenses/>.
 %
 
 beginps
@@ -29,6 +51,25 @@ beginps
 /en_note_names_bclef [
 	(G) (F) (E) (D) (C) (B) (A)
 ] def
+
+%
+% y0 is set by abcm2ps and is the Y offset of the first line of the staff, E on the treble cleff.
+% This number is always negative, as are note Y offsets. So, the formula below simply does:
+% (abs(note-y) - abs(staff-e-line)) / 3. 7 mod will result in 0 for E, -1 for F, 1 for D.
+% i.e. E = 0 and anything on either side is a positive or negative. Thus, I take 7 (number
+% of notes in the scale) times 10 for 70 and add that to it. This will not affect my 7 mod,
+% but will ensure that everything is a positive. I then use the result of that as the index
+% for en_note_names.
+%
+% For example: y0 = -48.0, y = -36
+% abs(-36) - abs(-48)        = -12.0
+% -12.0 / 3.0                = -4.0
+% -4.0 + 70.0                = 66.0
+% 66 mod 7                   = 3
+% [E D C B A G F]            = B (3rd index, 0 based)
+%
+% en_note_names can be set to _tclef or _bclef, i.e. E (treble) as the 1st line or G (bass).
+%
 
 /en_get_note_name {
 	en_note_names y abs 0 y0 abs sub 3 div cvi 70 add 7 mod abs get
