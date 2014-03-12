@@ -6,6 +6,20 @@ the actual note head. This is used to teach music to new students.
 
 ![Example of Easy Notes Output](http://jeremy.cowgar.com/easynotes.png "Example of Easy Notes Output")
 
+To use Easy Notes, add to your ``.abc`` file:
+
+    %%format easynote.fmt
+    %%ps easynotes_on
+
+You can also issue a:
+
+    %%ps easynotes_off
+
+to return back to normal note heads.
+
+It is also advisable to use ``%%scale 1.2`` or larger to make the letters in the note heads
+large enough to be readable at a normal distance.
+
 Limitations
 -----------
 
