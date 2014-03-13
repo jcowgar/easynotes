@@ -1,0 +1,27 @@
+%%format easynote.fmt
+%%scale 1.2
+
+%%ps easynotes_on
+
+X:1
+T:Easy Mary Had A Little Lamb
+M:4/4
+Q:120
+V:1
+K:C treble
+L:1/4
+E3/D/CD | EEE2 |
+w:Ma-ry had a lit-tle lamb,
+DDD2 | EGG2 |
+w:lit-tle lamb, lit-tle lamb.
+E3/D/CD | EEEE
+w:Mar-ry had a | lit-tle lamb, its
+DDED | C4 |]
+w:fleece was white as snow.
+V:2
+K:C bass
+L:1/4
+C,z[E,F,]z | C,z[E,G,]z |
+B,,z[F,G,]z | C,z[E,G,]z |
+C,z[E,F,]z | C,z[E,G,]z |
+B,,z[F,G,]z | C,z[E,G,]z |]
