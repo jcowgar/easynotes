@@ -33,10 +33,7 @@ You can also reset the hide list for other songs.
 Limitations
 -----------
 
-* Does not yet support multiple stave music.
 * Does not support ``breve`` or ``longa`` notes. This generally is not a problem 
   since any student just learning the music staff (thus using easy notes)
   is probably not going to run into such notes.
-* Does not support switching between the treble and bass clef mid staff. Again, though,
-  this is generally not a problem due to this extension being geared toward new readers
-  of music.
+* Only supports treble and bass clefs at this time.

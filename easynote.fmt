@@ -42,7 +42,9 @@ beginps
 /old_breve /breve load bind def
 /old_longa /longa load bind def
 /old_tclef /tclef load bind def
+/old_stclef /stclef load bind def
 /old_bclef /bclef load bind def
+/old_sbclef /sbclef load bind def
 /old_T /T load def
 
 % 0 = none, 1 = treble, 2 = bass
@@ -108,19 +110,23 @@ easynotes_showall
 	} if
 }!
 
-/T { /en_clef 0 def old_T }!
-/tclef {
+/en_setup_treble_clef {
 	dup /en_y exch def
 	/en_clef 1 def
 	/en_note_names en_note_names_tclef def
-	old_tclef
 }!
-/bclef {
+
+/en_setup_bass_clef {
 	dup /en_y exch def 
 	/en_clef 2 def
 	/en_note_names en_note_names_bclef def
-	old_bclef
 }!
+
+/T { /en_clef 0 def old_T }!
+/tclef { en_setup_treble_clef old_tclef }!
+/stclef { en_setup_treble_clef old_stclef }!
+/bclef { en_setup_bass_clef old_bclef }!
+/sbclef { en_setup_bass_clef old_sbclef }!
 
 /easynotes_on {
 	/hd{
