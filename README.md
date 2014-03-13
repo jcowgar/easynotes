@@ -36,4 +36,4 @@ Limitations
 * Does not support ``breve`` or ``longa`` notes. This generally is not a problem 
   since any student just learning the music staff (thus using easy notes)
   is probably not going to run into such notes.
-* Only supports treble and bass clefs at this time.
+* Only supports treble, bass and alto clefs at this time.

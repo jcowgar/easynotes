@@ -45,9 +45,11 @@ beginps
 /old_stclef /stclef load bind def
 /old_bclef /bclef load bind def
 /old_sbclef /sbclef load bind def
+/old_cclef /cclef load bind def
+/old_scclef /scclef load bind def
 /old_T /T load def
 
-% 0 = none, 1 = treble, 2 = bass
+% 0 = none, 1 = treble, 2 = bass, 3 = alto, 4 = tenor
 /en_clef 0 def
 /en_y 0 def
 
@@ -59,8 +61,8 @@ beginps
 	(E,)  (D,)  (C,)  (B,,) (A,,) (G,,) (F,,)
 ] def
 
-/en_note_names_tclef [ (E) (D) (C) (B) (A) (G) (F) ] def
-/en_note_names_bclef [ (G) (F) (E) (D) (C) (B) (A) ] def
+/en_note_name_offset 0 def
+/en_note_names [ (G) (F) (E) (D) (C) (B) (A) ] def
 /easynotes_hide { /en_note_pitches_hide exch def }!
 /easynotes_showall { /en_note_pitches_hide [] def }!
 easynotes_showall
@@ -84,7 +86,7 @@ easynotes_showall
 %
 
 /en_get_note_pitch_index { y abs en_y abs sub 3 div cvi 21 add abs }!
-/en_get_note_name { en_note_names en_get_note_pitch_index 7 mod get }!
+/en_get_note_name { en_note_names en_get_note_pitch_index en_note_name_offset add 7 mod get }!
 /en_get_note_pitch { en_pitches_tclef en_get_note_pitch_index get }!
 /en_note_font { /Helvetica-utf8 exch selectfont }!
 
@@ -113,13 +115,19 @@ easynotes_showall
 /en_setup_treble_clef {
 	dup /en_y exch def
 	/en_clef 1 def
-	/en_note_names en_note_names_tclef def
+	/en_note_name_offset 2 def
 }!
 
 /en_setup_bass_clef {
 	dup /en_y exch def 
 	/en_clef 2 def
-	/en_note_names en_note_names_bclef def
+	/en_note_name_offset 0 def
+}!
+
+/en_setup_alto_clef {
+	dup /en_y exch def 
+	/en_clef 3 def
+	/en_note_name_offset 1 def
 }!
 
 /T { /en_clef 0 def old_T }!
@@ -127,6 +135,8 @@ easynotes_showall
 /stclef { en_setup_treble_clef old_stclef }!
 /bclef { en_setup_bass_clef old_bclef }!
 /sbclef { en_setup_bass_clef old_sbclef }!
+/cclef { en_setup_alto_clef old_cclef }!
+/scclef { en_setup_alto_clef old_scclef }!
 
 /easynotes_on {
 	/hd{
