@@ -71,42 +71,25 @@ beginps
 easynotes_showall
 
 %
-% y0 is set by abcm2ps and is the Y offset of the first line of the staff, E on the treble cleff.
-% This number is always negative, as are note Y offsets. So, the formula below simply does:
-% (abs(note-y) - abs(staff-e-line)) / 3. 7 mod will result in 0 for E, -1 for F, 1 for D.
-% i.e. E = 0 and anything on either side is a positive or negative. Thus, I take 7 (number
-% of notes in the scale) adding 21. This will not affect my 7 mod, but will ensure that
-% everything is a positive. I then use the result of that as the index for en_note_names.
+% We take the y offset of the clef symbol, which is always the first line of the clef. We
+% therefore know what clef is being drawn (teble, bass, alto or tenor) and we know the Y
+% position of the first line as well as what note that should represent. Each line is separated
+% by 3.0, so we can then compute what note is being drawn.
 %
-% For example: y0 = -48.0, y = -36
-% abs(-36) - abs(-48)        = -12.0
-% -12.0 / 3.0                = -4.0
-% -4.0 + 21.0                = 17.0
-% 66 mod 7                   = 3
-% [E D C B A G F]            = B (3rd index, 0 based)
-%
-% en_note_names can be set to _tclef or _bclef, i.e. E (treble) as the 1st line or G (bass).
+% We first get the note pitch. From that we can use the modulo operator based on 7 notes
+% to get the note name from the en_note_names array. 
 %
 
-/en_get_note_pitch_index { y abs en_y abs sub 3 div cvi 21 add abs }!
-/en_get_note_name { en_note_names en_get_note_pitch_index en_note_name_offset add 7 mod get }!
+/en_get_note_pitch_index { y abs en_y abs sub 3 div cvi 21 add en_note_name_offset add abs }!
+/en_get_note_name { en_note_names en_get_note_pitch_index 7 mod get }!
 /en_get_note_pitch { en_pitches_tclef en_get_note_pitch_index get }!
 /en_note_font { /Helvetica-utf8 exch selectfont }!
 
 /en_should_print {
 	/Enp en_get_note_pitch def
-	/Ensp 1 def
-	en_note_pitches_hide {
-		Enp search {
-			pop pop
-			/Ensp 0 def
-			exit
-		} {
-			pop
-		} ifelse
+	1 en_note_pitches_hide {
+		Enp search { pop pop pop 0 exit } { pop } ifelse
 	} forall
-
-	Ensp
 }!
 
 /en_draw_note_name {
