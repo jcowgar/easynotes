@@ -38,23 +38,23 @@ beginps
 % Save copies of the existing note head definitions
 %
 
-/old_hd /hd load bind def
-/old_Hd /Hd load bind def
-/old_HD /HD load bind def
-/old_HDD /HDD load bind def
-/old_breve /breve load bind def
-/old_longa /longa load bind def
-/old_tclef /tclef load bind def
+/old_hd     /hd     load bind def
+/old_Hd     /Hd     load bind def
+/old_HD     /HD     load bind def
+/old_HDD    /HDD    load bind def
+/old_breve  /breve  load bind def
+/old_longa  /longa  load bind def
+/old_tclef  /tclef  load bind def
 /old_stclef /stclef load bind def
-/old_bclef /bclef load bind def
+/old_bclef  /bclef  load bind def
 /old_sbclef /sbclef load bind def
-/old_cclef /cclef load bind def
+/old_cclef  /cclef  load bind def
 /old_scclef /scclef load bind def
-/old_T /T load def
+/old_T      /T      load def
 
 % 0 = none, 1 = treble, 2 = bass, 3 = alto/tenor
 /en_clef 0 def
-/en_y 0 def
+/en_y    0 def
 
 /en_pitches_tclef [
 	(e'') (d'') (c'') (b')  (a')  (g')  (f') 
@@ -65,9 +65,9 @@ beginps
 ] def
 
 /en_note_name_offset 0 def
-/en_note_names [ (G) (F) (E) (D) (C) (B) (A) ] def
-/easynotes_hide { /en_note_pitches_hide exch def }!
-/easynotes_showall { /en_note_pitches_hide [] def }!
+/en_note_names       [ (G) (F) (E) (D) (C) (B) (A) ] def
+/easynotes_hide      { /en_note_pitches_hide exch def }!
+/easynotes_showall   { /en_note_pitches_hide [] def }!
 easynotes_showall
 
 %
@@ -81,9 +81,9 @@ easynotes_showall
 %
 
 /en_get_note_pitch_index { y abs en_y abs sub 3 div cvi 21 add en_note_name_offset add abs }!
-/en_get_note_name { en_note_names en_get_note_pitch_index 7 mod get }!
-/en_get_note_pitch { en_pitches_tclef en_get_note_pitch_index get }!
-/en_note_font { /Helvetica-utf8 exch selectfont }!
+/en_get_note_name        { en_note_names en_get_note_pitch_index 7 mod get }!
+/en_get_note_pitch       { en_pitches_tclef en_get_note_pitch_index get }!
+/en_note_font            { /Helvetica-utf8 exch selectfont }!
 
 /en_should_print {
 	/Enp en_get_note_pitch def
@@ -132,11 +132,11 @@ easynotes_showall
 		en_clef 0 eq {
 			old_Hd 
 		} {
-			/x 2 index def/y 1 index def
+			/x 2 index def /y 1 index def
 			gsave
-				x y 4 0 360 arc closepath 0.0 setgray fill
-				3.5 0 360 arc closepath 1.0 setgray fill
-				0.0 setgray x y 4 0 360 arc closepath stroke
+				    4   0 360 arc closepath 0.0 setgray fill
+				x y 3.5 0 360 arc closepath 1.0 setgray fill
+				x y 4   0 360 arc closepath 0.0 setgray stroke
 				en_draw_note_name
 			grestore
 		} ifelse
@@ -145,10 +145,16 @@ easynotes_showall
 }!
 
 /easynotes_off {
-	/hd /old_hd load bind def
-	/Hd /old_Hd load bind def
-	/HD /old_HD load bind def
-	/HDD /old_HDD load bind def
+	%
+	% We keep our definitions of the clef work because one may turn on easynotes
+	% at any time and thus need to know what clef we are drawing on and the first line
+	% offset.
+	%
+	
+	/hd    /old_hd    load bind def
+	/Hd    /old_Hd    load bind def
+	/HD    /old_HD    load bind def
+	/HDD   /old_HDD   load bind def
 	/breve /old_breve load bind def
 	/longa /old_longa load bind def
 }!
