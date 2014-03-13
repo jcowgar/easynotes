@@ -43,6 +43,11 @@ beginps
 /old_longa /longa load bind def
 /old_tclef /tclef load bind def
 /old_bclef /bclef load bind def
+/old_T /T load def
+
+% 0 = none, 1 = treble, 2 = bass
+/en_clef 0 def
+/en_y 0 def
 
 /en_pitches_tclef [
 	(e'') (d'') (c'') (b')  (a')  (g')  (f') 
@@ -76,7 +81,7 @@ easynotes_showall
 % en_note_names can be set to _tclef or _bclef, i.e. E (treble) as the 1st line or G (bass).
 %
 
-/en_get_note_pitch_index { y abs 0 y0 abs sub 3 div cvi 21 add abs }!
+/en_get_note_pitch_index { y abs en_y abs sub 3 div cvi 21 add abs }!
 /en_get_note_name { en_note_names en_get_note_pitch_index 7 mod get }!
 /en_get_note_pitch { en_pitches_tclef en_get_note_pitch_index get }!
 /en_note_font { /Helvetica-utf8 exch selectfont }!
@@ -103,37 +108,49 @@ easynotes_showall
 	} if
 }!
 
+/T { /en_clef 0 def old_T }!
+/tclef {
+	dup /en_y exch def
+	/en_clef 1 def
+	/en_note_names en_note_names_tclef def
+	old_tclef
+}!
+/bclef {
+	dup /en_y exch def 
+	/en_clef 2 def
+	/en_note_names en_note_names_bclef def
+	old_bclef
+}!
+
 /easynotes_on {
-	/tclef {
-		/en_note_names en_note_names_tclef def
-		old_tclef
-	}!
-	/bclef {
-		/en_note_names en_note_names_bclef def
-		old_bclef
-	}!
 	/hd{
-		/x 2 index def /y 1 index def
-		gsave
-			4 0 360 arc closepath 0.0 setgray fill
-			1.0 setgray en_draw_note_name
-		grestore
+		en_clef 0 eq {
+			old_hd
+		} {
+			/x 2 index def /y 1 index def
+			gsave
+				4 0 360 arc closepath 0.0 setgray fill
+				1.0 setgray en_draw_note_name
+			grestore
+		} ifelse
 	}!
 	/Hd{
-		/x 2 index def/y 1 index def
-		gsave
-			x y 4 0 360 arc closepath 0.0 setgray fill
-			3.5 0 360 arc closepath 1.0 setgray fill
-			0.0 setgray x y 4 0 360 arc closepath stroke
-			en_draw_note_name
-		grestore
+		en_clef 0 eq {
+			old_Hd 
+		} {
+			/x 2 index def/y 1 index def
+			gsave
+				x y 4 0 360 arc closepath 0.0 setgray fill
+				3.5 0 360 arc closepath 1.0 setgray fill
+				0.0 setgray x y 4 0 360 arc closepath stroke
+				en_draw_note_name
+			grestore
+		} ifelse
 	}!
 	/HD { Hd }!
 }!
 
 /easynotes_off {
-	/tclef /old_tclef load bind def
-	/bclef /old_bclef load bind def
 	/hd /old_hd load bind def
 	/Hd /old_Hd load bind def
 	/HD /old_HD load bind def
