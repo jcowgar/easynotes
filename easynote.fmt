@@ -6,10 +6,13 @@
 %
 % Contributors:
 %
+%   Jean-Francois Moine was a huge help via email/abcusers mailing list.
 %
 % History:
 %
-%     (2014-03-12 -- Initial creation)
+%     2014-03-13 -- Supports multi-stave music, switching clefs mid-stave,
+%                   treble, bass, alto and tenor clefs.
+%     2014-03-12 -- Initial creation
 %
 % Copyright (C) 2014 by Jeremy Cowgar
 %
@@ -49,7 +52,7 @@ beginps
 /old_scclef /scclef load bind def
 /old_T /T load def
 
-% 0 = none, 1 = treble, 2 = bass, 3 = alto, 4 = tenor
+% 0 = none, 1 = treble, 2 = bass, 3 = alto/tenor
 /en_clef 0 def
 /en_y 0 def
 
