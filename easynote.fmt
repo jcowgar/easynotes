@@ -86,9 +86,8 @@ easynotes_showall
 /en_note_font            { /Helvetica-utf8 exch selectfont }!
 
 /en_should_print {
-	/Enp en_get_note_pitch def
 	1 en_note_pitches_hide {
-		Enp search { pop pop pop 0 exit } { pop } ifelse
+		en_get_note_pitch eq { pop 0 exit } if
 	} forall
 }!
 
@@ -123,6 +122,7 @@ easynotes_showall
 		} {
 			/x 2 index def /y 1 index def
 			gsave
+				2 copy M
 				4 0 360 arc closepath 0.0 setgray fill
 				1.0 setgray en_draw_note_name
 			grestore
@@ -134,8 +134,8 @@ easynotes_showall
 		} {
 			/x 2 index def /y 1 index def
 			gsave
-				    4   0 360 arc closepath 0.0 setgray fill
-				x y 3.5 0 360 arc closepath 1.0 setgray fill
+				2 copy M
+				    3.5 0 360 arc closepath 1.0 setgray fill
 				x y 4   0 360 arc closepath 0.0 setgray stroke
 				en_draw_note_name
 			grestore
