@@ -57,12 +57,14 @@ beginps
 /en_y    0 def
 
 /en_pitches [
-	(g'') (f'') (e'') (d'') (c'')  (b')   (a')
-	(g')  (f')  (e')  (d')  (c')   (b)    (a)
-	(g)   (f)   (e)   (d)   (c)    (B)    (A)
-	(G)   (F)   (E)   (D)   (C)    (B,)   (A,)
-	(G,)  (F,)  (E,)  (D,)  (C,)   (B,,)  (A,,)
-	(G,,) (F,,) (E,,) (D,,) (C,,,) (B,,,) (A,,,)
+	(g''') (f''') (e''') (d''') (c''') (b'')   (a'')
+	(g'')  (f'')  (e'')  (d'')  (c'')  (b')    (a')
+	(g')   (f')   (e')   (d')   (c')   (b)     (a)
+	(g)    (f)    (e)    (d)    (c)    (B)     (A)
+	(G)    (F)    (E)    (D)    (C)    (B,)    (A,)
+	(G,)   (F,)   (E,)   (D,)   (C,)   (B,,)   (A,,)
+	(G,,)  (F,,)  (E,,)  (D,,)  (C,,)  (B,,,)  (A,,,)
+	(G,,,) (F,,,) (E,,,) (D,,,) (C,,,) (B,,,,) (A,,,,)
 ] def
 
 /en_note_name_offset 0 def
@@ -81,9 +83,13 @@ easynotes_showall
 % to get the note name from the en_note_names array. 
 %
 
-/en_get_note_pitch_index { y abs en_y abs sub 3 div cvi 21 add en_note_name_offset add abs }!
+/en_get_note_pitch_index { y abs en_y abs sub 3 div cvi 28 add en_note_name_offset add abs }!
 /en_get_note_name        { en_note_names en_get_note_pitch_index 7 mod get }!
-/en_get_note_pitch       { en_pitches en_get_note_pitch_index get }!
+/en_get_note_pitch       {
+	en_pitches en_get_note_pitch_index
+	en_clef 1 ne { 7 add } if % bass, tenor and alto staffs are 7 steps lower
+	get 
+}!
 /en_note_font            { /Helvetica-utf8 exch selectfont }!
 
 /en_should_print {
